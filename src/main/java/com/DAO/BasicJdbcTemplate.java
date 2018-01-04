@@ -47,7 +47,7 @@ public class BasicJdbcTemplate {
 	    return jdbcTemplate.update(query);  
 	}  
 	@CachePut(value="employees",key="#id")
-	public int saveEmployeeWithCache(Employee e){  
+	public int saveEmployeeWithCache(Employee e,int id){  
 	    String query="insert into employee values( '"+e.getId()+"','"+e.getName()+"','"+e.getRole()+"')";  
 	    return jdbcTemplate.update(query);  
 	}  

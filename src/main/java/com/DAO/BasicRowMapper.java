@@ -128,7 +128,7 @@ public class BasicRowMapper {
         insertActor.execute(parameters);*/
         
     }
-	@Cacheable(value="employees",key="#id",condition = "#id < 25")
+	@Cacheable(value="employees",key="#id")
 	public List<Employee> getEmployeesUsingResultSetRowMapper(int id,int count){  
 	    String query="select * from Employee where id=?";  
 	    return jdbcTemplate.query(query,new Object[] {id},new RowMapper<Employee>(){

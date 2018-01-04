@@ -68,9 +68,9 @@ public class CacheTest {
 	@Test
 	public void getDeleteAndGetEmployeesWithoutUsingCacheEvict() {
 		try {
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(30,1));
-	        System.out.println( basicEmpDao.deleteEmployee(prepareEmployee(30)));
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(30,2));
+	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(35,1));
+	        System.out.println( basicEmpDao.deleteEmployee(prepareEmployee(35)));
+	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(35,2));
 	       
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -80,9 +80,9 @@ public class CacheTest {
 	@Test
 	public void getDeleteAndGetEmployeesUsingCacheEvict() {
 		try {
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(33,1));
-	        System.out.println( basicEmpDao.deleteEmployee(33));
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(33,2));
+	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(36,1));
+	        System.out.println( basicEmpDao.deleteEmployee(36));
+	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(36,2));
 	       
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -92,9 +92,8 @@ public class CacheTest {
 	@Test
 	public void saveAndGetEmployeesWithoutUsingCachePut() {
 		try {
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(33,1));
 	        System.out.println( basicEmpDao.saveEmployee(prepareEmployee(35)));
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(33,2));
+	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(35,2));
 	       
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -104,9 +103,8 @@ public class CacheTest {
 	@Test
 	public void saveAndGetEmployeesWithUsingCachePut() {
 		try {
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(33,1));
-	        System.out.println( basicEmpDao.saveEmployeeWithCache(prepareEmployee(35)));
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(33,2));
+	        System.out.println( basicEmpDao.saveEmployeeWithCache(prepareEmployee(37),37));
+	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(37,2));
 	       
 		}catch (Exception e) {
 			e.printStackTrace();

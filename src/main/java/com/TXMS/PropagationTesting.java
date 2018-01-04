@@ -28,10 +28,10 @@ public class PropagationTesting {
 	}  
 	
 	
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class,noRollbackFor=RuntimeErrorException.class)
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public void propagationRequired() throws RuntimeErrorException {
 		try {
-			saveEmployee(prepareEmployee(39));
+			saveEmployee(prepareEmployee(51));
 			propagationRequiresNew();
 		}catch (Exception e) {
 			throw new RuntimeErrorException(new Error(e.getMessage()));
@@ -45,7 +45,7 @@ public class PropagationTesting {
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public void propagationRequiredAutomocityPassTest() throws Exception {
 		try {
-			saveEmployee(prepareEmployee(37));
+			saveEmployee(prepareEmployee(49));
 			propagationRequiredAutomocityPassTest2();
 		}catch (Exception e) {
 			throw new Exception(e.getMessage());

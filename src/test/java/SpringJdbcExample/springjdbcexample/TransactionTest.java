@@ -87,7 +87,7 @@ public class TransactionTest {
 	@Test
 	public void saveEmployeeByVarArgs() {
 		try {
-			int id = isolationTesting.saveEmployeeByVarArgs(prepareEmployee(101));
+			int id = isolationTesting.saveEmployeeByVarArgs(prepareEmployee(121));
 			System.out.println("getEmployeesUsingResultSetRowMapper");
 			
 		}catch (Exception e) {
