@@ -23,6 +23,5 @@ public class SimpleBookRepository {
 	        } catch (InterruptedException e) {
 	            throw new IllegalStateException(e);
 	        }
-	    }
-
+}
 }

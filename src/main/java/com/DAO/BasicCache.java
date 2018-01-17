@@ -20,10 +20,10 @@ public class BasicCache {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	@Cacheable(value="employees",key="#id")
-	public List<Employee> getEmployeesUsingResultSetRowMapper(int id,int count){  
+	@Cacheable(value="employees" ,key="#id")
+	public Employee getEmployeesUsingResultSetRowMapper(int id,int count){  
 	    String query="select * from Employee where id=?";  
-	    return jdbcTemplate.query(query,new Object[] {id},new RowMapper<Employee>(){
+	    return jdbcTemplate.queryForObject(query,new Object[] {id},new RowMapper<Employee>(){
 			@Override
 			public Employee mapRow(ResultSet rs, int arg1) throws SQLException {
 				System.out.println("count"+count);
@@ -41,8 +41,9 @@ public class BasicCache {
 	    return jdbcTemplate.update(query);  
 	}  
 	@CachePut(value="employees",key="#id")
-	public int saveEmployeeWithCache(Employee e,int id){  
+	public Employee saveEmployeeWithCache(Employee e,int id){  
 	    String query="insert into employee values( '"+e.getId()+"','"+e.getName()+"','"+e.getRole()+"')";  
-	    return jdbcTemplate.update(query);  
+	    jdbcTemplate.update(query);
+	    return e;
 	}
 }

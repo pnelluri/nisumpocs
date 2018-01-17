@@ -84,35 +84,9 @@ public class BasicRowMapper {
 		}
 	}
 	
-	public int[] batchUpdate(final List<Employee> actors) {
-        return this.jdbcTemplate.batchUpdate(
-                "update t_actor set first_name = ?, role = ? where id = ?",
-                new BatchPreparedStatementSetter() {
-                   
-                    public int getBatchSize() {
-                        return actors.size();
-                    }
-					public void setValues(java.sql.PreparedStatement ps, int i) throws SQLException {
-						 ps.setString(1, actors.get(i).getName());
-	                        ps.setString(2, actors.get(i).getRole());
-	                        ps.setInt(3, actors.get(i).getId());
-						
-					}
-                });
-    }
-	public int[] batchUpdate2(final List<Employee> actors) {
-        List<Object[]> batch = new ArrayList<Object[]>();
-        for (Employee actor : actors) {
-            Object[] values = new Object[] {
-                    actor.getName(), actor.getRole(), actor.getId()};
-            batch.add(values);
-        }
-        return this.jdbcTemplate.batchUpdate(
-                "update t_actor set name = ?, role = ? where id = ?",
-                batch);
-    }
+	
 	public void add(Employee actor) {
-        Map<String, Object> parameters = new HashMap();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("name", actor.getName());
         parameters.put("role", actor.getRole());
 //        /*insertActor.setTableName("employee");
@@ -128,20 +102,6 @@ public class BasicRowMapper {
         insertActor.execute(parameters);*/
         
     }
-	@Cacheable(value="employees",key="#id")
-	public List<Employee> getEmployeesUsingResultSetRowMapper(int id,int count){  
-	    String query="select * from Employee where id=?";  
-	    return jdbcTemplate.query(query,new Object[] {id},new RowMapper<Employee>(){
-			@Override
-			public Employee mapRow(ResultSet rs, int arg1) throws SQLException {
-				System.out.println("count"+count);
-				 Employee e=new Employee();  
-				 e.setId(rs.getInt(1));  
-				 e.setName(rs.getString(2));  
-				 e.setRole(rs.getString(3));  
-				 return e;
-			}
-	    });  
-	}
+	
 	
 }

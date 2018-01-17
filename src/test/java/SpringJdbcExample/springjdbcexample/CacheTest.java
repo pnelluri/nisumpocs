@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.DAO.BasicCache;
 import com.DAO.BasicJdbcTemplate;
 import com.DAO.BasicRowMapper;
 import com.bo.Employee;
@@ -32,6 +33,8 @@ public class CacheTest {
 	@Qualifier("bjt")
 	private BasicJdbcTemplate basicEmpDao;
 	
+	@Autowired
+	private BasicCache basicCache;
 	@Test
 	public void getByIsbnWithoutCacheTest() {
 		try {
@@ -68,9 +71,9 @@ public class CacheTest {
 	@Test
 	public void getDeleteAndGetEmployeesWithoutUsingCacheEvict() {
 		try {
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(35,1));
-	        System.out.println( basicEmpDao.deleteEmployee(prepareEmployee(35)));
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(35,2));
+	        System.out.println( basicCache.getEmployeesUsingResultSetRowMapper(75,1));
+	        System.out.println( basicEmpDao.deleteEmployee(prepareEmployee(75)));
+	        System.out.println( basicCache.getEmployeesUsingResultSetRowMapper(75,2));
 	       
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -80,9 +83,9 @@ public class CacheTest {
 	@Test
 	public void getDeleteAndGetEmployeesUsingCacheEvict() {
 		try {
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(36,1));
-	        System.out.println( basicEmpDao.deleteEmployee(36));
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(36,2));
+	        System.out.println( basicCache.getEmployeesUsingResultSetRowMapper(36,1));
+	        System.out.println( basicCache.deleteEmployee(36));
+	        System.out.println( basicCache.getEmployeesUsingResultSetRowMapper(36,2));
 	       
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -92,8 +95,8 @@ public class CacheTest {
 	@Test
 	public void saveAndGetEmployeesWithoutUsingCachePut() {
 		try {
-	        System.out.println( basicEmpDao.saveEmployee(prepareEmployee(35)));
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(35,2));
+	        System.out.println( basicEmpDao.saveEmployee(prepareEmployee(75)));
+	        System.out.println( basicCache.getEmployeesUsingResultSetRowMapper(75,2));
 	       
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -101,10 +104,10 @@ public class CacheTest {
 		
 	}
 	@Test
-	public void saveAndGetEmployeesWithUsingCachePut() {
+	public void saveEmployeesWithUsingCachePut() {
 		try {
-	        System.out.println( basicEmpDao.saveEmployeeWithCache(prepareEmployee(37),37));
-	        System.out.println( empDao.getEmployeesUsingResultSetRowMapper(37,2));
+	        System.out.println( basicCache.saveEmployeeWithCache(prepareEmployee(75),75));
+	        System.out.println( basicCache.getEmployeesUsingResultSetRowMapper(75,2));
 	       
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -112,6 +115,17 @@ public class CacheTest {
 		
 	}
 	
+	@Test
+	public void getEmployeesWithUsingCachePut() {
+		try {
+	      //  System.out.println( basicCache.saveEmployeeWithCache(prepareEmployee(75),75));
+	        System.out.println( basicCache.getEmployeesUsingResultSetRowMapper(75,2));
+	       
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 
 	private Employee prepareEmployee(int id) {

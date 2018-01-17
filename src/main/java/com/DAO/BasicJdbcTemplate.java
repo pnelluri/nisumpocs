@@ -41,14 +41,5 @@ public class BasicJdbcTemplate {
 	    String query="delete from employee where id='"+e.getId()+"' ";  
 	    return jdbcTemplate.update(query);  
 	}  
-	@CacheEvict(value="employees",key="#id")
-	public int deleteEmployee(int id){  
-	    String query="delete from employee where id='"+id+"' ";  
-	    return jdbcTemplate.update(query);  
-	}  
-	@CachePut(value="employees",key="#id")
-	public int saveEmployeeWithCache(Employee e,int id){  
-	    String query="insert into employee values( '"+e.getId()+"','"+e.getName()+"','"+e.getRole()+"')";  
-	    return jdbcTemplate.update(query);  
-	}  
+	  
 }
